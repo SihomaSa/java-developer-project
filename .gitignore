@@ -1,0 +1,40 @@
+# Compiled classes
+**/target/
+**/out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Environment / secrets
+.env
+*.env
+**/application-local.properties
+**/application-docker.properties   # si tiene passwords reales
+**/application-prod.properties
+
+# Frontend
+node_modules/
+dist/
+build/
+
+# Maven / Gradle wrapper (opcional, si quieres ignorar)
+.mvn/wrapper/maven-wrapper.jar
+
+# Backup
+*.bak

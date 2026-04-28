@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/layout.tsx","./src/context/authcontext.tsx","./src/pages/login.tsx","./src/pages/lowstock.tsx","./src/pages/productdetail.tsx","./src/pages/productlist.tsx","./src/services/api.ts","./src/services/productservice.ts","./src/types/product.ts"],"version":"6.0.3"}

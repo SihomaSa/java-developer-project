@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # ===========================
+  # APLICACIÓN JAVA
+  # ===========================
+  app:
+    build: .
+    container_name: java-developer-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/javadev
+      SPRING_DATASOURCE_USERNAME: javadev
+      SPRING_DATASOURCE_PASSWORD: javadev123
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver  
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin123
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - javadev-network
+    restart: unless-stopped
+    healthcheck:                              
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================
+  # POSTGRESQL
+  # ===========================
+  postgres:
+    image: postgres:16-alpine
+    container_name: javadev-postgres
+    environment:
+      POSTGRES_DB: javadev
+      POSTGRES_USER: javadev
+      POSTGRES_PASSWORD: javadev123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U javadev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - javadev-network
+
+  # ===========================
+  # RABBITMQ
+  # ===========================
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: javadev-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - javadev-network
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+
+networks:
+  javadev-network:
+    driver: bridge
