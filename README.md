@@ -50,6 +50,9 @@
 | **Rutas**         | React Router DOM                        |
 | **Notificaciones**| React Hot Toast                         |
 | **Iconos**        | Lucide React                            |
+<img width="1948" height="2442" alt="localhost_8080_" src="https://github.com/user-attachments/assets/2b117fd9-464c-4d68-98f7-c770fb22dcae" />
+<img width="1948" height="2442" alt="localhost_8080_ (2)" src="https://github.com/user-attachments/assets/e2f5d304-4e47-4314-b4d8-1de9354be54c" />
+<img width="1948" height="2442" alt="localhost_8080_ (1)" src="https://github.com/user-attachments/assets/d0f0e5b6-8883-4648-943e-d55aeeadbd36" />
 
 ---
 
